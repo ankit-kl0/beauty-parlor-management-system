@@ -1,0 +1,92 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #faf8f6 0%, #fdf6f8 30%, #f7f7f4 60%, #ffffff 100%);
+  position: relative;
+  overflow: hidden;
+  padding: 20px;
+}
+
+.login-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1920&q=80') center/cover;
+  opacity: 0.05;
+  z-index: 0;
+}
+
+.login-card {
+  background: rgba(255, 255, 255, 0.98);
+  padding: 50px 40px;
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+  width: 100%;
+  max-width: 450px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(183, 110, 121, 0.15);
+  position: relative;
+  z-index: 1;
+}
+
+.login-card h2 {
+  margin-bottom: 10px;
+  text-align: center;
+  color: #2b2b2b;
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #555;
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 14px 18px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background: #fafafa;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #b76e79;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(183, 110, 121, 0.1);
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 20px;
+  color: #666;
+}
+
+.register-link a {
+  color: #8e5a6a;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.register-link a:hover {
+  color: #b76e79;
+  text-decoration: underline;
+}
+
