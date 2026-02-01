@@ -4,7 +4,7 @@ This guide will help you set up the complete Beauty Parlor Management System fro
 
 ## Prerequisites
 
-- Node.js (v14 or higher)
+- Node.js (v18 or higher recommended)
 - MySQL (v5.7 or higher)
 - npm or yarn
 
