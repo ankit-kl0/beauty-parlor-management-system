@@ -11,9 +11,13 @@ if (fs.existsSync(envPath)) {
   
   // Check if JWT_SECRET exists in the file
   const envContent = fs.readFileSync(envPath, 'utf8');
-  if (!envContent.includes('JWT_SECRET=') || envContent.match(/JWT_SECRET=\s*$/m)) {
+  const jwtSecretMatch = envContent.match(/JWT_SECRET=(.*)$/m);
+  
+  if (!jwtSecretMatch || !jwtSecretMatch[1] || jwtSecretMatch[1].trim() === '' || 
+      jwtSecretMatch[1].trim() === '""' || jwtSecretMatch[1].trim() === "''") {
     console.log('\n⚠️  WARNING: JWT_SECRET appears to be missing or empty in your .env file');
-    console.log('   Please add: JWT_SECRET=your_secret_key_here');
+    console.log('   Please add: JWT_SECRET=your_secure_random_secret_key_here');
+    console.log('   Tip: Use a long random string (at least 32 characters)');
     process.exit(1);
   }
   

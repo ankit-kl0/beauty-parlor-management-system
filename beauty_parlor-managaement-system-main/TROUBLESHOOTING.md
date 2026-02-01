@@ -28,9 +28,13 @@ Login error: Error: secretOrPrivateKey must have a value
    - Open (or create) `backend/.env`
    - Add this line:
      ```
-     JWT_SECRET=your_super_secret_jwt_key_change_this_in_production_12345
+     JWT_SECRET=REPLACE_WITH_RANDOM_STRING_MIN_32_CHARS
      ```
-   - Replace the value with a long, random, secure string
+   - **IMPORTANT:** Replace with a long, random, secure string (minimum 32 characters)
+   - Example of generating a secure secret:
+     ```bash
+     node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+     ```
 
 3. **Restart the backend server** after making changes
 
