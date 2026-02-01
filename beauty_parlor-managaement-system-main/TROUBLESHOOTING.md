@@ -67,9 +67,18 @@ Server will still start, but API endpoints that require the database will return
 
 1. **Verify MySQL is running:**
    ```bash
-   # On macOS/Linux:
+   # On Linux:
    sudo systemctl status mysql
+   
+   # On macOS:
+   brew services list
    # or
+   mysql.server status
+   
+   # On Windows:
+   # Check Services app for MySQL service
+   
+   # Or try connecting directly:
    mysql -u root -p
    ```
 
