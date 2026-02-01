@@ -38,12 +38,21 @@ This guide will help you set up the complete Beauty Parlor Management System fro
    npm install
    ```
 
-3. **Configure Environment Variables**
+3. **Configure Environment Variables (REQUIRED)**
    
+   **Option 1 - Automated (Recommended):**
+   ```bash
+   npm run setup
+   ```
+   
+   This automatically creates a `.env` file with all required variables.
+   
+   **Option 2 - Manual:**
    Create a `.env` file in the `backend` directory:
    ```env
-   PORT=5000
+   PORT=5001
    DB_HOST=localhost
+   DB_PORT=3306
    DB_USER=root
    DB_PASSWORD=your_mysql_password
    DB_NAME=beauty_parlor
@@ -52,7 +61,9 @@ This guide will help you set up the complete Beauty Parlor Management System fro
    NODE_ENV=development
    ```
    
-   **Important:** Replace `your_mysql_password` with your actual MySQL password.
+   **Important:** 
+   - Replace `your_mysql_password` with your actual MySQL password
+   - The `JWT_SECRET` is **required** - authentication will fail without it
 
 4. **Create Admin User**
    ```bash

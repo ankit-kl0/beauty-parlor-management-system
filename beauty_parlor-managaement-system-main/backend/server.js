@@ -6,6 +6,22 @@ const db = require('./config/database');
 
 dotenv.config();
 
+// Validate required environment variables
+const requiredEnvVars = ['JWT_SECRET'];
+const missingEnvVars = requiredEnvVars.filter(varName => !process.env[varName]);
+
+if (missingEnvVars.length > 0) {
+  console.error('\n❌ ERROR: Missing required environment variables:');
+  missingEnvVars.forEach(varName => {
+    console.error(`   - ${varName}`);
+  });
+  console.error('\n📋 Solution:');
+  console.error('   1. Run: npm run setup');
+  console.error('   2. Or manually create a .env file with required variables');
+  console.error('   3. See setup-env.js for template\n');
+  process.exit(1);
+}
+
 const app = express();
 
 // Middleware
