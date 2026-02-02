@@ -1,0 +1,107 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', 'Segoe UI', 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Soft luxury background */
+  background: linear-gradient(
+    135deg,
+    #faf8f6 0%,
+    #fdf6f8 30%,
+    #f7f7f4 60%,
+    #ffffff 100%
+  );
+
+  min-height: 100vh;
+  color: #3a3a3a;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;
+  color: #2b2b2b;
+  letter-spacing: 0.5px;
+}
+
+/* Status messages */
+.loading {
+  text-align: center;
+  padding: 50px;
+  font-size: 18px;
+  color: #6b6b6b;
+}
+
+.error {
+  color: #c62828;
+  padding: 20px;
+  text-align: center;
+}
+
+.success-message {
+  background: #e8f5e9;
+  color: #2e7d32;
+  padding: 14px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border-left: 4px solid #66bb6a;
+}
+
+.error-message {
+  background: #fdecea;
+  color: #c62828;
+  padding: 14px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border-left: 4px solid #e57373;
+}
+
+/* Primary Button – subtle luxury */
+.btn-primary {
+  background: linear-gradient(135deg, #b76e79 0%, #8e5a6a 100%);
+  color: #fff;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 24px rgba(183, 110, 121, 0.25);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(183, 110, 121, 0.35);
+  background: linear-gradient(135deg, #c97b85 0%, #9b6575 100%);
+}
+
+.btn-primary:disabled {
+  background: #d8cfd1;
+  color: #888;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Secondary Button – neutral */
+.btn-secondary {
+  background: #6f6f6f;
+  color: white;
+  border: none;
+  padding: 12px 26px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 10px;
+  transition: background 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: #555;
+}
