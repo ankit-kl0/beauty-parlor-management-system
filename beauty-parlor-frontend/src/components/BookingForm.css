@@ -1,0 +1,99 @@
+.booking-form-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.booking-form-card {
+  background: white;
+  padding: 40px;
+  border-radius: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(183, 110, 121, 0.12);
+}
+
+.booking-form-card h2 {
+  margin-bottom: 25px;
+  color: #2b2b2b;
+  font-size: 1.8rem;
+  font-weight: 700;
+  font-family: 'Playfair Display', serif;
+  letter-spacing: 0.3px;
+}
+
+.service-info {
+  background: rgba(250, 248, 246, 0.6);
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  border-left: 4px solid #b76e79;
+}
+
+.service-info p {
+  margin: 5px 0;
+  color: #555;
+}
+
+.time-slots {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.time-slot-btn {
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  background: white;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.time-slot-btn:hover {
+  border-color: #b76e79;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(183, 110, 121, 0.2);
+}
+
+.time-slot-btn.selected {
+  background: linear-gradient(135deg, #b76e79 0%, #8e5a6a 100%);
+  color: white;
+  border-color: #b76e79;
+  box-shadow: 0 4px 15px rgba(183, 110, 121, 0.3);
+}
+
+.no-slots {
+  color: #888;
+  font-style: italic;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #555;
+  font-weight: 500;
+}
+
+.form-group input[type="date"] {
+  width: 100%;
+  padding: 14px 18px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background: #fafafa;
+}
+
+.form-group input[type="date"]:focus {
+  outline: none;
+  border-color: #b76e79;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(183, 110, 121, 0.1);
+}
+

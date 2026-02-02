@@ -1,0 +1,94 @@
+import axios from "axios";
+
+const API_URL = "http://localhost:5001/api";
+
+// Create axios instance
+const api = axios.create({
+  baseURL: API_URL,
+});
+
+// Set up request interceptor to add token
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+// Set up response interceptor for error handling
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      // Token expired or invalid
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      window.location.href = "/login";
+    }
+    return Promise.reject(error);
+  }
+);
+
+// Services
+export const getServices = () => api.get("/services");
+export const getService = (id) => api.get(`/services/${id}`);
+
+// Availability
+export const getAvailability = (serviceId, date) => {
+  const params = date ? { date } : {};
+  return api.get(`/availability/service/${serviceId}`, { params });
+};
+
+// Bookings
+export const createBooking = (data) => {
+  // Support both single service (backward compatibility) and bulk booking
+  const bookingData = data.services ? data : { services: [{ service_id: data.service_id }], booking_date: data.booking_date, time_slot: data.time_slot };
+  return api.post("/bookings", bookingData);
+};
+export const getMyBookings = () => api.get("/bookings/my-bookings");
+export const cancelBooking = (id, data) => api.put(`/bookings/${id}/cancel`, data);
+
+// Admin
+export const getDashboard = () => api.get("/admin/dashboard");
+export const getAllAppointments = (params) => api.get("/admin/appointments", { params });
+export const getBookingHistory = () => api.get("/admin/booking-history");
+
+// Service management (admin)
+export const createService = (data) => api.post("/services", data);
+export const updateService = (id, data) => api.put(`/services/${id}`, data);
+export const deleteService = (id) => api.delete(`/services/${id}`);
+
+// Set availability (admin)
+export const setAvailability = (data) => api.post("/availability", data);
+
+// Staff
+export const getStaff = () => api.get("/staff");
+export const getStaffMember = (id) => api.get(`/staff/${id}`);
+export const createStaff = (data) => api.post("/staff", data);
+export const updateStaff = (id, data) => api.put(`/staff/${id}`, data);
+export const deleteStaff = (id) => api.delete(`/staff/${id}`);
+export const setStaffWorkingHours = (id, data) => api.post(`/staff/${id}/working-hours`, data);
+
+// Feedback
+export const getFeedback = (params) => api.get("/feedback", { params });
+export const getAllFeedback = () => api.get("/feedback/admin/all");
+export const createFeedback = (data) => api.post("/feedback", data);
+export const getMyFeedback = () => api.get("/feedback/my-feedback");
+export const updateFeedbackVisibility = (id, data) => api.put(`/feedback/${id}/visibility`, data);
+
+// Contact Messages
+export const sendContactMessage = (data) => api.post("/contact", data);
+export const getAllContactMessages = () => api.get("/contact/admin/all");
+export const markContactMessageRead = (id) => api.put(`/contact/${id}/read`);
+export const deleteContactMessage = (id) => api.delete(`/contact/${id}`);
+
+// Booking status (admin)
+export const updateBookingStatus = (id, data) => api.put(`/bookings/${id}/status`, data);
+
+export default api;

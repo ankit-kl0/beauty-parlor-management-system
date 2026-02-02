@@ -1,0 +1,201 @@
+.about-us-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 50px 20px;
+}
+
+.about-hero {
+  text-align: center;
+  margin-bottom: 60px;
+  padding: 60px 40px;
+  background: url("https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1920&q=80")
+    center / cover no-repeat;
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.45);
+  z-index: 1;
+}
+
+.about-hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.about-hero h1 {
+  font-size: 3rem;
+  color: #111;
+  margin-bottom: 15px;
+  font-family: "Playfair Display", serif;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.tagline {
+  font-size: 1.3rem;
+  color: #222;
+  font-weight: 400;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.about-content {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.about-section {
+  background: #fff;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(183, 110, 121, 0.12);
+}
+
+.about-section h2 {
+  color: #111;
+  margin-bottom: 20px;
+  font-size: 2rem;
+  font-family: "Playfair Display", serif;
+}
+
+.about-section p {
+  color: #111;
+  line-height: 1.8;
+  font-size: 1.1rem;
+}
+
+/* FEATURES GRID */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+
+/* FEATURE CARD */
+.feature-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: #fff;
+}
+
+.feature-card .feature-image {
+  width: 100%;
+  height: 180px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 18px 18px 0 0;
+}
+
+.feature-card h3 {
+  margin: 15px 0 10px 0;
+  color: #111;
+}
+
+.feature-card p {
+  margin: 0 15px 20px 15px;
+  color: #111;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.15);
+}
+
+/* BACKGROUND IMAGES */
+.feature-card.stylists .feature-image {
+  background-image: url("https://plus.unsplash.com/premium_photo-1664048712505-17696076685a?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c3R5bGlzdCUyMHBhcmxvcnxlbnwwfHwwfHx8MA%3D%3D");
+}
+
+.feature-card.premium .feature-image {
+  background-image: url("https://images.unsplash.com/photo-1522337660859-02fbefca4702?q=80&w=1740&auto=format&fit=crop");
+}
+
+.feature-card.trends .feature-image {
+  background-image: url("https://plus.unsplash.com/premium_photo-1670002270265-2c2ac8cb7b02?q=80&w=1742&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+}
+
+.feature-card.care .feature-image {
+  background-image: url("https://images.unsplash.com/photo-1556228720-195a672e8a03?q=80&w=1740&auto=format&fit=crop");
+}
+
+/* SERVICES */
+.services-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.services-list li {
+  padding: 12px 0 12px 30px;
+  position: relative;
+  color: #111;
+  font-size: 1.1rem;
+}
+
+.services-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #8e5a6a;
+  font-size: 1.5rem;
+}
+
+/* VISIT US SECTION */
+.visit-us-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.visit-text {
+  flex: 1 1 350px;
+}
+
+.visit-map {
+  flex: 1 1 400px;
+  height: 300px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+.visit-map iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 16px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-card .feature-image {
+    height: 150px;
+  }
+
+  .visit-us-section {
+    flex-direction: column;
+  }
+
+  .visit-map {
+    height: 250px;
+  }
+}
