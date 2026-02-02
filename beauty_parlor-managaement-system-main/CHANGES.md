@@ -2,6 +2,46 @@
 
 This document summarizes all the changes made to get the Beauty Parlor Management System running.
 
+## February 2026 - Dependency Upgrades
+
+### Overview
+All project dependencies upgraded to their latest stable versions as of February 2026. This includes major version upgrades for Express (v4→v5), bcryptjs (v2→v3), and various React libraries.
+
+### Backend Package Upgrades
+- **Express**: v4.18.2 → v5.2.1 (major)
+- **bcryptjs**: v2.4.3 → v3.0.3 (major)
+- **dotenv**: v16.6.1 → v17.2.3 (major)
+- **cors**: v2.8.5 → v2.8.6
+- **express-validator**: v7.0.1 → v7.3.1
+- **jsonwebtoken**: v9.0.2 → v9.0.3
+- **mysql2**: v3.16.0 → v3.16.2
+- **nodemon**: v3.0.2 → v3.1.9 (dev)
+
+### Frontend Package Upgrades
+- **React & React DOM**: v19.2.0/v19.2.3 → v19.2.4
+- **React Router DOM**: v7.11.0 → v7.13.0
+- **axios**: v1.12.2/v1.13.2 → v1.13.4
+- **@testing-library/react**: v16.3.0/v16.3.1 → v16.3.2
+- **@testing-library/user-event**: v13.5.0 → v14.6.1 (major)
+- **web-vitals**: v2.1.4 → v5.1.0 (major)
+
+### Security Fixes
+- Fixed lodash prototype pollution vulnerability
+- All backend runtime security vulnerabilities resolved
+
+### Documentation Updates
+- Updated Node.js requirement to v18+ (from v14+)
+- Added UPGRADE_NOTES.md with detailed upgrade information
+- Updated QUICK_START.md and SETUP_GUIDE.md
+
+### Testing Results
+- ✅ Backend server tested with Express 5
+- ✅ Frontend builds successfully tested
+- ✅ No breaking changes in existing code
+- ✅ All syntax validation passed
+
+---
+
 ## Backend Changes
 
 ### 1. Server.js - Database Connection Fix

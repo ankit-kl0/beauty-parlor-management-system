@@ -6,7 +6,22 @@ const envExamplePath = path.join(__dirname, '.env.example');
 
 // Check if .env already exists
 if (fs.existsSync(envPath)) {
-  console.log('✓ .env file already exists');
+  console.log('✅ .env file already exists');
+  console.log('📍 Location: backend/.env');
+  
+  // Check if JWT_SECRET exists in the file
+  const envContent = fs.readFileSync(envPath, 'utf8');
+  const jwtSecretMatch = envContent.match(/JWT_SECRET=(.*)$/m);
+  const jwtSecretValue = jwtSecretMatch ? jwtSecretMatch[1].trim() : '';
+  
+  if (!jwtSecretMatch || !jwtSecretValue || jwtSecretValue === '""' || jwtSecretValue === "''") {
+    console.log('\n⚠️  WARNING: JWT_SECRET appears to be missing or empty in your .env file');
+    console.log('   Please add: JWT_SECRET=your_secure_random_secret_key_here');
+    console.log('   Tip: Use a long random string (at least 32 characters)');
+    process.exit(1);
+  }
+  
+  console.log('✅ JWT_SECRET is configured');
   process.exit(0);
 }
 
@@ -24,10 +39,14 @@ NODE_ENV=development
 
 try {
   fs.writeFileSync(envPath, envTemplate);
-  console.log('✓ .env file created successfully');
-  console.log('⚠️  Please update DB_PASSWORD in backend/.env with your MySQL password');
+  console.log('✅ .env file created successfully');
+  console.log('📍 Location: backend/.env');
+  console.log('\n⚠️  Next steps:');
+  console.log('   1. Update DB_PASSWORD in backend/.env with your MySQL password');
+  console.log('   2. Optionally change JWT_SECRET to a more secure value');
+  console.log('   3. Run: npm start\n');
 } catch (error) {
-  console.error('✗ Error creating .env file:', error.message);
+  console.error('❌ Error creating .env file:', error.message);
   process.exit(1);
 }
 

@@ -4,7 +4,7 @@ This guide will help you get the Beauty Parlor Management System up and running 
 
 ## Prerequisites
 
-- **Node.js** (v14 or higher) - [Download](https://nodejs.org/)
+- **Node.js** (v18 or higher recommended) - [Download](https://nodejs.org/)
 - **MySQL** (v5.7 or higher) - [Download](https://dev.mysql.com/downloads/)
 - **npm** (comes with Node.js)
 
@@ -38,11 +38,19 @@ This guide will help you get the Beauty Parlor Management System up and running 
    npm install
    ```
 
-3. **Create .env File**
+3. **Create .env File (REQUIRED)**
    
+   **Option 1 - Automated (Recommended):**
+   ```bash
+   npm run setup
+   ```
+   
+   This will automatically create a `.env` file with all required variables including `JWT_SECRET`.
+   
+   **Option 2 - Manual:**
    Create a `.env` file in the `backend` directory with the following content:
    ```env
-   PORT=5000
+   PORT=5001
    DB_HOST=localhost
    DB_PORT=3306
    DB_USER=root
@@ -53,7 +61,9 @@ This guide will help you get the Beauty Parlor Management System up and running 
    NODE_ENV=development
    ```
    
-   **Important:** Replace `your_mysql_password_here` with your actual MySQL password.
+   **Important:** 
+   - Replace `your_mysql_password_here` with your actual MySQL password
+   - The `JWT_SECRET` is **required** for authentication to work
 
 4. **Create Admin User**
    ```bash
@@ -118,6 +128,15 @@ This guide will help you get the Beauty Parlor Management System up and running 
    - Create a new user account
 
 ## Troubleshooting
+
+### "secretOrPrivateKey must have a value" Error
+**Symptom:** Login/Registration fails with `Error: secretOrPrivateKey must have a value`
+
+**Solution:**
+1. The `.env` file is missing or `JWT_SECRET` is not set
+2. Run: `npm run setup` in the backend directory
+3. Or manually add `JWT_SECRET=your_secret_key` to `.env` file
+4. Restart the backend server
 
 ### Database Connection Issues
 - Verify MySQL is running: `mysql -u root -p`
