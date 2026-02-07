@@ -46,28 +46,28 @@ function ContactUs() {
               <div className="info-icon">📍</div>
               <div>
                 <h3>Address</h3>
-                <p>123 Beauty Street<br />Kathmandu, Nepal</p>
+                <p>Battisputali<br />Kathmandu, Nepal</p>
               </div>
             </div>
             <div className="info-item">
               <div className="info-icon">📞</div>
               <div>
                 <h3>Phone</h3>
-                <p>+977-1-1234567<br />+977-9841234567</p>
+                <p>9841234234</p>
               </div>
             </div>
             <div className="info-item">
               <div className="info-icon">✉️</div>
               <div>
                 <h3>Email</h3>
-                <p>info@sujitabeautyparlour.com<br />bookings@sujitabeautyparlour.com</p>
+                <p>support@sujitabeautyparlour.com</p>
               </div>
             </div>
             <div className="info-item">
               <div className="info-icon">🕐</div>
               <div>
                 <h3>Working Hours</h3>
-                <p>Monday - Saturday: 9:00 AM - 6:00 PM<br />Sunday: Closed</p>
+                <p>Sunday - Friday: 9:00 AM - 7:00 PM<br />Saturday: 10:00 AM - 5:00 PM</p>
               </div>
             </div>
           </div>
