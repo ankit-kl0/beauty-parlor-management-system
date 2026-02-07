@@ -29,11 +29,9 @@ router.get('/service/:serviceId', async (req, res) => {
       AND NOT EXISTS (
         SELECT 1
         FROM bookings b
-        LEFT JOIN booking_services bs ON b.id = bs.booking_id
         WHERE b.booking_date = a.date
           AND b.time_slot = a.time_slot
-          AND b.status IN ('PENDING','CONFIRMED')
-          AND (bs.service_id = a.service_id OR (bs.service_id IS NULL AND b.service_id = a.service_id))
+          AND b.status IN ('PENDING','CONFIRMED','CANCEL_REQUESTED')
       )
       ORDER BY a.date, a.time_slot
     `;

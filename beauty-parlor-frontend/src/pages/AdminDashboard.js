@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   getDashboard,
   getAllAppointments,
@@ -24,27 +24,16 @@ function AdminDashboard() {
   // Staff State for stylist assignment
   const [staff, setStaff] = useState([]);
 
-  useEffect(() => {
-    fetchDashboard();
-    fetchAppointments();
-    fetchFeedback();
-    fetchStaff();
-  }, []);
-
-  useEffect(() => {
-    fetchAppointments();
-  }, [filter]);
-
-  const fetchDashboard = async () => {
+  const fetchDashboard = useCallback(async () => {
     try {
       const res = await getDashboard();
       setStats(res.data.data);
     } catch (err) {
       console.error("Failed to load dashboard", err);
     }
-  };
+  }, []);
 
-  const fetchAppointments = async () => {
+  const fetchAppointments = useCallback(async () => {
     try {
       const params = {};
       if (filter.status) params.status = filter.status;
@@ -57,9 +46,9 @@ function AdminDashboard() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filter]);
 
-  const fetchFeedback = async () => {
+  const fetchFeedback = useCallback(async () => {
     setFeedbackLoading(true);
     try {
       const res = await getAllFeedback();
@@ -69,16 +58,27 @@ function AdminDashboard() {
     } finally {
       setFeedbackLoading(false);
     }
-  };
+  }, []);
 
-  const fetchStaff = async () => {
+  const fetchStaff = useCallback(async () => {
     try {
       const res = await getStaff();
       setStaff(res.data.data);
     } catch (err) {
       console.error("Failed to load staff", err);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchDashboard();
+    fetchAppointments();
+    fetchFeedback();
+    fetchStaff();
+  }, [fetchAppointments, fetchDashboard, fetchFeedback, fetchStaff]);
+
+  useEffect(() => {
+    fetchAppointments();
+  }, [fetchAppointments, filter]);
 
   const handleToggleFeedbackVisibility = async (feedbackId, currentVisibility) => {
     try {
@@ -200,8 +200,8 @@ function AdminDashboard() {
             <p className="stat-number">{appointments.filter(a => a.status === "CONFIRMED").length}</p>
           </div>
           <div className="stat-card">
-            <h2>Cancel Requests</h2>
-            <p className="stat-number">{appointments.filter(a => a.status === "CANCEL_REQUESTED").length}</p>
+            <h2>Cancelled</h2>
+            <p className="stat-number">{appointments.filter(a => a.status === "CANCELLED").length}</p>
           </div>
         </div>
       )}

@@ -15,6 +15,7 @@ import BookingHistory from "./pages/BookingHistory";
 import AdminDashboard from "./pages/AdminDashboard";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
+import FeedbackPage from "./pages/FeedbackPage";
 
 import "./styles.css";
 
@@ -88,6 +89,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <BookingHistory />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/user/feedback"
+            element={
+              <ProtectedRoute>
+                <FeedbackPage />
               </ProtectedRoute>
             }
           />

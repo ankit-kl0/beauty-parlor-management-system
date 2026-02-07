@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
 const path = require('path');
 const db = require('./config/database');
@@ -7,6 +8,10 @@ const db = require('./config/database');
 dotenv.config();
 
 const app = express();
+
+if (process.env.NODE_ENV === 'production') {
+  app.set('trust proxy', 1);
+}
 
 // Ensure critical environment variables exist before proceeding
 const requiredEnv = ['JWT_SECRET'];
@@ -18,9 +23,14 @@ if (missingEnv.length) {
 }
 
 // Middleware
-app.use(cors());
+const allowedOrigins = (process.env.CLIENT_ORIGIN || '').split(',').map(origin => origin.trim()).filter(Boolean);
+app.use(cors({
+  origin: allowedOrigins.length ? allowedOrigins : true,
+  credentials: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // Serve static files from uploads directory
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));

@@ -37,7 +37,10 @@ function Navbar() {
           {user ? (
             <>
               {user.role !== "admin" && (
-                <Link to="/user/bookings">My Bookings</Link>
+                <>
+                  <Link to="/user/bookings">My Bookings</Link>
+                  <Link to="/user/feedback">Feedback</Link>
+                </>
               )}
               <span className="user-name">{user.name}</span>
               <button onClick={handleLogout} className="btn-logout">

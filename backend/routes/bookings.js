@@ -41,9 +41,23 @@ router.post('/', authenticate, [
     const user_id = req.user.id;
     const normalizedTimeSlot = normalizeTimeSlot(time_slot);
 
+    if (services && services.length === 1) {
+      return res.status(400).json({
+        success: false,
+        message: 'Select a single service for standard booking or use bulk booking for multiple services.'
+      });
+    }
+
+    if (!service_id && (!services || services.length === 0)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please select a service to book.'
+      });
+    }
+
     // Determine if this is a bulk booking
     const isBulkBooking = services && services.length > 1;
-    const serviceList = services || [{ service_id }];
+    const serviceList = services && services.length > 0 ? services : [{ service_id }];
 
     // Calculate total price and duration for bulk bookings
     let total_price = 0;
@@ -69,6 +83,25 @@ router.post('/', authenticate, [
 
     connection = await db.getConnection();
     await connection.beginTransaction();
+
+    const [slotConflict] = await connection.execute(
+      `SELECT id
+       FROM bookings
+       WHERE booking_date = ?
+         AND time_slot = ?
+         AND status IN ('PENDING', 'CONFIRMED', 'CANCEL_REQUESTED')
+       LIMIT 1
+       FOR UPDATE`,
+      [booking_date, normalizedTimeSlot]
+    );
+
+    if (slotConflict.length > 0) {
+      await connection.rollback();
+      return res.status(400).json({
+        success: false,
+        message: 'Selected time slot is already booked.'
+      });
+    }
 
     // Claim availability atomically for each requested service
     for (const serviceItem of serviceList) {

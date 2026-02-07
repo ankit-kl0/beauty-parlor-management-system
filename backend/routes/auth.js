@@ -5,6 +5,13 @@ const { body, validationResult } = require('express-validator');
 const db = require('../config/database');
 const router = express.Router();
 
+const getCookieOptions = () => ({
+  httpOnly: true,
+  secure: process.env.NODE_ENV === 'production',
+  sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+  maxAge: 7 * 24 * 60 * 60 * 1000
+});
+
 // Login
 router.post('/login', [
   body('email').isEmail().withMessage('Valid email required'),
@@ -52,6 +59,8 @@ router.post('/login', [
       process.env.JWT_SECRET,
       { expiresIn: process.env.JWT_EXPIRE || '7d' }
     );
+
+    res.cookie('session', token, getCookieOptions());
 
     res.json({
       success: true,
@@ -119,6 +128,8 @@ router.post('/register', [
       { expiresIn: process.env.JWT_EXPIRE || '7d' }
     );
 
+    res.cookie('session', token, getCookieOptions());
+
     res.status(201).json({
       success: true,
       token,
@@ -136,6 +147,12 @@ router.post('/register', [
       message: 'Server error during registration' 
     });
   }
+});
+
+// Logout
+router.post('/logout', (req, res) => {
+  res.clearCookie('session', getCookieOptions());
+  res.json({ success: true, message: 'Logged out successfully' });
 });
 
 module.exports = router;

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { getMyBookings, cancelBooking, createFeedback } from "../services/api";
 import "./BookingHistory.css";
 
@@ -10,7 +10,7 @@ function BookingHistory() {
   const [feedbackForms, setFeedbackForms] = useState({});
   const [submittingFeedbackId, setSubmittingFeedbackId] = useState(null);
 
-  const getDatePart = (dateValue) => {
+  const getDatePart = useCallback((dateValue) => {
     if (!dateValue) return null;
     if (typeof dateValue === "string") {
       return dateValue.includes("T") ? dateValue.split("T")[0] : dateValue;
@@ -21,31 +21,43 @@ function BookingHistory() {
       console.error("Failed to parse date", err);
       return null;
     }
-  };
+  }, []);
 
-  const getBookingDateTime = (dateValue, timeSlot) => {
+  const getBookingDateTime = useCallback((dateValue, timeSlot) => {
     const datePart = getDatePart(dateValue);
     if (!datePart) return null;
     const normalizedTime = (timeSlot || "00:00:00").slice(0, 8);
     const candidate = new Date(`${datePart}T${normalizedTime}`);
     return Number.isNaN(candidate.getTime()) ? null : candidate;
-  };
+  }, [getDatePart]);
 
-  useEffect(() => {
-    fetchBookings();
-  }, []);
-
-  const fetchBookings = async () => {
+  const fetchBookings = useCallback(async () => {
     try {
       setLoading(true);
       const response = await getMyBookings();
-      setBookings(response.data.data);
+      const data = response.data.data || [];
+      const sorted = [...data].sort((a, b) => {
+        const aDateTime = getBookingDateTime(a.booking_date, a.time_slot);
+        const bDateTime = getBookingDateTime(b.booking_date, b.time_slot);
+        if (aDateTime && bDateTime) {
+          return bDateTime.getTime() - aDateTime.getTime();
+        }
+        if (a.created_at && b.created_at) {
+          return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+        }
+        return 0;
+      });
+      setBookings(sorted);
     } catch (err) {
       setError("Failed to load bookings");
     } finally {
       setLoading(false);
     }
-  };
+  }, [getBookingDateTime]);
+
+  useEffect(() => {
+    fetchBookings();
+  }, [fetchBookings]);
 
   const handleCancelBooking = async (bookingId) => {
     const confirmCancel = window.confirm("Are you sure you want to cancel this booking?");
@@ -64,10 +76,8 @@ function BookingHistory() {
   };
 
   const canCancelBooking = (bookingDate, timeSlot, status) => {
-    if (status === "CANCELLED" || status === "COMPLETED") return false;
-    const bookingDateTime = getBookingDateTime(bookingDate, timeSlot);
-    if (!bookingDateTime) return false;
-    return bookingDateTime > new Date() && (status === "PENDING" || status === "CONFIRMED");
+    if (status === "CANCELLED" || status === "COMPLETED" || status === "CANCEL_REQUESTED") return false;
+    return status === "PENDING" || status === "CONFIRMED";
   };
 
   const handleFeedbackChange = (bookingId, field, value) => {
